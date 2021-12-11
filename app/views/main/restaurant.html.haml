@@ -1,0 +1,29 @@
+%h3
+  %div{:class=>'row'}
+    %div{:class=>'col-sm-8'}
+      %div{:class=>''} Profile
+      %div{:class=>''} name:#{@restaurant.restaurant_name}
+      %div{:class=>''} Comments List
+      - if @restaurant.comments.size > 0
+        - @restaurant.comments.each.with_index() do |comment,index|
+          = render 'comment_card',comment:comment,user:@user
+      - else
+        %div{:class=>'h6 mx-auto'} ----There is no comment----
+    %div{:class=>'col-sm-4'}
+      - if @favourite
+        = link_to 'Already add to favourite', "/addToFavorite/"+@restaurant.id.to_s,method: :post,class:"btn btn-outline-primary mt-2 col-sm-12 disabled"
+      - else
+        = link_to 'Add to favourite', "/addToFavorite/"+@restaurant.id.to_s,method: :post,class:"btn btn-outline-primary mt-2 col-sm-12"
+      = link_to 'Appoint', "/appointment/"+@restaurant.id.to_s,class:"btn btn-outline-primary mt-2 col-sm-12"
+      - if @rate
+        = link_to 'Edit Rate', "/edit_rate/"+@restaurant.id.to_s,class:"btn btn-outline-primary mt-2 col-sm-12"
+      - else
+        = link_to 'Rate', "/rate/"+@restaurant.id.to_s,class:"btn btn-outline-primary mt-2 col-sm-12"
+      - if @comment
+        = link_to 'Edit Comment', "/edit_comment/"+@restaurant.id.to_s,class:"btn btn-outline-primary mt-2 col-sm-12"
+      - else
+        = link_to 'Comment', "/comment/"+@restaurant.id.to_s,class:"btn btn-outline-primary mt-2 col-sm-12"
+      
+      
+
+

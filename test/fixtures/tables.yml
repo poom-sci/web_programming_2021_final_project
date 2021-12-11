@@ -1,0 +1,12 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_capacity: 4
+  table_number: 1
+  restaurant: restaurant1
+
+two:
+  customer_capacity: 4
+  table_number: 2
+  restaurant: restaurant1
+

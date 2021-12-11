@@ -1,0 +1,13 @@
+%h3
+  %div{:class=>'row'}
+    %div{:class=>'col-sm-4'}
+      %div{:class=>''} Profile
+      %div{:class=>''} name:#{@user.display_name}
+      = link_to 'edit profile', "/edit_profile",class:"btn btn-outline-primary mt-2"
+    %div{:class=>'col-sm-8'}
+      %div{:class=>''}Show Appointment
+      - @user.get_today_appointments().each.with_index() do |appointment,index|
+        = render 'appointment_card', appointment:appointment
+      
+
+

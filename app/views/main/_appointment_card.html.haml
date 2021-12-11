@@ -1,0 +1,8 @@
+.card{:class => "col-sm-10 mb-3 mt-3"}
+  .card-body
+    = link_to appointment.table.restaurant.restaurant_name, 'restaurant/'+(appointment.table.restaurant.id.to_s),class:"fs-5"
+    %div{:class=>'fw-normal fs-6'} time: #{appointment.get_time}
+    %div{:class=>'fw-normal fs-6'} table number: #{appointment.table.table_number}
+    = link_to 'cancel', 'cancelAppointment/'+appointment.id.to_s,method: :delete,class:"fs-5 btn btn-danger"
+
+  

@@ -1,0 +1,6 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+two:
+  user: usera
+  restaurant: restarant2
+  rate_score: 1

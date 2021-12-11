@@ -1,0 +1,32 @@
+%h1 Listing likes
+
+%table{:class=>'row-border hover order-column',:id=>'example',:style=>''}
+  %thead
+    %tr
+      %th Restaurant
+      %th Max_table
+      %th Rate
+      %th Go To
+
+  %tbody
+    - @restaurants.each.with_index() do |restaurant,index|
+      %tr
+        %td= restaurant.restaurant_name
+        %td= restaurant.get_table_capacity()
+        %td= restaurant.get_rate_average()
+        %td= link_to 'Go', 'restaurant/'+String(restaurant.id)
+
+%br
+
+
+:javascript 
+  $(document).ready(function() {
+    var table = $('#example').DataTable({searching: true});
+     
+    $('#example tbody').on( 'mouseenter', 'td', function () {
+            var colIdx = table.cell(this).index().column;
+ 
+            $( table.cells().nodes() ).removeClass( 'highlight' );
+            $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
+        } );
+  } );

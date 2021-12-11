@@ -1,0 +1,21 @@
+.card{:class => "col-sm-12 mb-3 mt-3"}
+  .card-body
+    %div{:class=>'fw-normal fs-6'} msg: #{comment.msg}
+    %div{:class=>'fw-normal fs-6'} by: #{comment.user.display_name}
+    %div{:class=>'fw-normal fs-6'} post by: #{comment.updated_at}
+    %div{:class=>'row'}
+      = simple_form_for :like, method: :post, url: '/like/'+comment.id.to_s do |f|
+        .form-actions
+          -if(Like.find_by(user_id:user.id,comment_id:comment.id,like_type:true))
+            = f.button :submit,'Like',action:'Like',class:"btn btn-dark mt-2 disabled"           
+          -else
+            = f.button :submit,'Like',action:'Like',class:"btn btn-danger sx-2 mt-2"
+        .form-actions
+          -if(Like.find_by(user_id:user.id,comment_id:comment.id,like_type:false))
+            = f.button :submit,'Unlike',action:'Unlike',class:"btn btn-dark mt-2 disabled"          
+          -else
+            = f.button :submit,'Unlike',action:'Unlike',class:"btn btn-outline-danger sx-2 mt-2"
+      %div{:class=>'fw-normal fs-6 col-sm-4'} total likes: #{comment.get_total_likes()}
+
+
+  

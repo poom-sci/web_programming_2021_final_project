@@ -1,0 +1,23 @@
+%h1 Listing favourites
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Restaurant
+      %th
+      %th
+      %th
+
+  %tbody
+    - @favourites.each do |favourite|
+      %tr
+        %td= favourite.user
+        %td= favourite.restaurant
+        %td= link_to 'Show', favourite
+        %td= link_to 'Edit', edit_favourite_path(favourite)
+        %td= link_to 'Destroy', favourite, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Favourite', new_favourite_path

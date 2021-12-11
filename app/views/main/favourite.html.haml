@@ -1,0 +1,32 @@
+%h1 Listing likes
+
+%table{:class=>'row-border hover order-column',:id=>'example',:style=>''}
+  %thead
+    %tr
+      %th Restaurant
+      %th Max_table
+      %th Go to
+      %th Remove
+
+  %tbody
+    - @user.favourites.each.with_index() do |favourite,index|
+      %tr
+        %td= favourite.restaurant.restaurant_name
+        %td= favourite.restaurant.get_table_capacity()
+        %td= link_to 'Go', 'restaurant/'+String(favourite.restaurant.id)
+        %td= link_to 'Remove', 'favourite_remove/'+String(favourite.restaurant.id), method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+
+:javascript 
+  $(document).ready(function() {
+    var table = $('#example').DataTable({searching: true});
+     
+    $('#example tbody').on( 'mouseenter', 'td', function () {
+            var colIdx = table.cell(this).index().column;
+ 
+            $( table.cells().nodes() ).removeClass( 'highlight' );
+            $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
+        } );
+  } );

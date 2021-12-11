@@ -1,0 +1,26 @@
+%h1 Edit Comment
+
+%h3{class:'restaurant_name'} #{@comment.restaurant.restaurant_name}
+-# frozen_string_literal: true
+= simple_form_for @comment,method: :post, :url => '/edit_comment' do |f|
+	= f.error_notification
+	= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+	.form-inputs
+		= f.input :msg, as: :text,input_html: {class: 'msg_input' }
+		= f.input :restaurant_id,:as => :hidden
+
+	.form-actions
+		= f.button :submit,'Submit',class:'btn btn-outline-primary mt-2 submit_button',data: {class:'data_show_modal', confirm: 'Are you sure?' }
+		= link_to 'Back', :back,class:"btn btn-warning mt-2"
+
+
+:javascript 
+	$(document).ready(function() {
+		$('.submit_button').click(function () {
+			const restaurant_name=$('.restaurant_name').text()
+			const msg_input=$('.msg_input').val()
+		    $(this).attr('data-confirm','You comment restaurant: '+restaurant_name+' \n message: '+msg_input)
+		});
+	});
+      

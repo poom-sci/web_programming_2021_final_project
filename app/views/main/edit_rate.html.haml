@@ -1,0 +1,26 @@
+%h1 Edit Rate
+
+%h3{class:'restaurant_name'} #{@rate.restaurant.restaurant_name}
+-# frozen_string_literal: true
+= simple_form_for @rate,method: :post, :url => '/edit_rate' do |f|
+	= f.error_notification
+	= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+	.form-inputs
+		= f.input :rate_score,collection: [1,2,3,4,5],input_html: {class: 'rate_score_input' }
+		= f.input :restaurant_id,:as => :hidden,input_html: {class: 'restaurant_id_input' }
+
+	.form-actions
+		= f.button :submit,'Submit',class:'btn btn-outline-primary mt-2 submit_button', data: {class:'data_show_modal', confirm: 'Are you sure?' }
+		= link_to 'Back', :back,class:"btn btn-warning mt-2"
+	
+
+:javascript 
+	$(document).ready(function() {
+		$('.submit_button').click(function () {
+			const restaurant_name=$('.restaurant_name').text()
+			const rate_score_input=$('.rate_score_input').val()
+		    $(this).attr('data-confirm','You rate '+restaurant_name+' \n score: '+String(rate_score_input))
+		});
+	});
+      

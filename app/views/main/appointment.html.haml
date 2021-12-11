@@ -1,0 +1,101 @@
+%h3
+  %div{:class=>'row'}
+    %div{:class=>'col-sm-12'}
+      %h3{class:'restaurant_name'} #{@restaurant.restaurant_name}
+      %div{:class=>''} Comments List
+      %table{:class=>'row-border hover order-column',:id=>'example',:style=>''}
+        %thead
+          %tr
+            %th{:class=>'fs-5'} Table Number
+            %th{:class=>'fs-5'} Capacity
+            %th{:class=>'fs-5'} 10:00
+            %th{:class=>'fs-5'} 12:00
+            %th{:class=>'fs-5'} 14:00
+            %th{:class=>'fs-5'} 16:00
+            %th{:class=>'fs-5'} 18:00
+            %th{:class=>'fs-5'} 20:00
+
+        %tbody
+          - @restaurant.tables.each.with_index() do |table,index|
+            %tr
+              %td= table.table_number
+              %td= table.customer_capacity
+              - if !@appointment_list[index].include?0
+                %td{:class=>'to_be_reserved','data_filled'=> table.id.to_s + ' ' +table.table_number.to_s + ' 0 ' + table.customer_capacity.to_s,:role=>'button' } Y
+              - else
+                %td reserved
+              - if !@appointment_list[index].include?1
+                %td{:class=>'pe-auto to_be_reserved','data_filled'=> table.id.to_s + ' ' +table.table_number.to_s + ' 1 ' + table.customer_capacity.to_s,:role=>'button'} Y
+              - else
+                %td reserved
+              - if !@appointment_list[index].include?2
+                %td{:class=>'pe-auto to_be_reserved','data_filled'=> table.id.to_s + ' ' +table.table_number.to_s + ' 2 ' + table.customer_capacity.to_s,:role=>'button'} Y
+              - else
+                %td reserved
+              - if !@appointment_list[index].include?3
+                %td{:class=>'pe-auto to_be_reserved','data_filled'=> table.id.to_s + ' ' +table.table_number.to_s + ' 3 ' + table.customer_capacity.to_s,:role=>'button'} Y
+              - else
+                %td reserved
+              - if !@appointment_list[index].include?4
+                %td{:class=>'pe-auto to_be_reserved','data_filled'=> table.id.to_s + ' ' +table.table_number.to_s + ' 4 ' + table.customer_capacity.to_s,:role=>'button'} Y
+              - else
+                %td reserved
+              - if !@appointment_list[index].include?5
+                %td{:class=>'pe-auto to_be_reserved','data_filled'=> table.id.to_s + ' ' +table.table_number.to_s + ' 5 ' + table.customer_capacity.to_s,:role=>'button'} Y
+              - else
+                %td reserved
+      
+        
+   
+-# frozen_string_literal: true
+= simple_form_for @appointment,method: :post, :url => '/appointment/'+@restaurant.id.to_s do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+    = simple_fields_for :form do |form|
+      = form.input :table_number,collection: @restaurant.get_table_list(),:class=>'table_number_form',input_html: {class: 'table_number_input' }
+    = f.input :time_start,collection: ['10:00','12:00','14:00','16:00','18:00','20:00'].map.with_index {|v,i| [v,i]},input_html: {class: 'time_start_input' }
+    = f.input :people_amount,:class=>'people_amount_form',input_html: {class: 'people_amount_input' }
+
+
+  .form-actions
+    = f.button :submit,'Confirm',class:'btn btn-outline-primary mt-2 submit_button',data: {class:'data_show_modal', confirm: 'Are you sure?' }
+    = link_to 'Back', :back,class:"btn btn-warning mt-2"
+  
+
+
+      
+:javascript 
+  $(document).ready(function() {
+    var table = $('#example').DataTable({searching: false,paging:false,bInfo : false});
+     
+    $('#example tbody').on( 'mouseenter', 'td', function () {
+            var colIdx = table.cell(this).index().column;
+ 
+            $( table.cells().nodes() ).removeClass( 'highlight' );
+            $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
+        } );
+
+    $('.to_be_reserved').click(function () {
+
+        const filled_data=$(this).attr('data_filled').split(' ')
+
+        $(".table_id_input").prop('value',filled_data[0])
+        $(".table_number_input").prop('value',filled_data[1])
+        $(".time_start_input").prop('value',filled_data[2])
+        $(".people_amount_input").prop('value',filled_data[3])
+
+
+        } );
+
+    $('.submit_button').click(function () {
+      const restaurant_name=$('.restaurant_name').text()
+      const msg_input=$('.table_number_input').val()
+      const time_start_input=$('.time_start_input').val()
+
+        $(this).attr('data-confirm','You are booking restaurant: '+restaurant_name+' \ntable_number: '+msg_input+" \nAt:"+(Number(time_start_input)*2+10)+":00" )
+    });
+  } );
+      
+

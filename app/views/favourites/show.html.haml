@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @favourite.user
+%p
+  %b Restaurant:
+  = @favourite.restaurant
+
+= link_to 'Edit', edit_favourite_path(@favourite)
+\|
+= link_to 'Back', favourites_path

@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Customer capacity:
+  = @table.customer_capacity
+%p
+  %b Table number:
+  = @table.table_number
+%p
+  %b Restaurant:
+  = @table.restaurant
+
+= link_to 'Edit', edit_table_path(@table)
+\|
+= link_to 'Back', tables_path
