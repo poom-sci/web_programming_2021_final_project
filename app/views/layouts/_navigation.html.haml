@@ -1,15 +1,17 @@
 %nav.navbar.navbar-expand-lg.navbar-light.bg-light
   .container-fluid
     -if(session[:user_id])
-      %a.navbar-brand{:href => "/main"} Chog To
+      %a.navbar-brand{:href => "/main"} Jong To
     -else
-      %a.navbar-brand{:href => login_path} Chog To
+      %a.navbar-brand{:href => login_path} Jong To
     -if(session[:user_id])
       %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
         %span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
       -if(session[:user_id])
         %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+          %li.nav-item
+            %a.nav-link.active{"aria-current" => "home", :href => "/main"} Home
           %li.nav-item
             %a.nav-link.active{"aria-current" => "favourite", :href => "/favourite"} Favourite
           %li.nav-item

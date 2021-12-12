@@ -36,7 +36,7 @@ class RateTest < ApplicationSystemTestCase
       click_on "Submit"
     end
     visit 'restaurant_list'
-    assert_text "4"
+    assert_text "4.0"
   end
 
   test "u1 edit rate" do

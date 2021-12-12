@@ -10,10 +10,10 @@ class Restaurant < ApplicationRecord
 
 	def get_rate_average
 		@rate_array=self.rates.pluck('rate_score')
-		begin  
-			return @rate_array.inject(0){|sum,x| sum + Integer(x) }/@rate_array.size
-		rescue 
-    		return 0
+		if  @rate_array.size != 0
+			return @rate_array.inject(0.0){|sum,x| sum + Integer(x) }/@rate_array.size
+		else 
+    		return 0.0
     	end
 	end
 
