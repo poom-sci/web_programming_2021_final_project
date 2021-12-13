@@ -7,7 +7,7 @@
 	= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
 	.form-inputs
-		= f.input :rate_score,collection: [1,2,3,4,5],input_html: {class: 'rate_score_input' }
+		= f.input :rate_score,collection: [1,2,3,4,5],selected:5,input_html: {class: 'rate_score_input' }
 		= f.input :restaurant_id,:as => :hidden,input_html: {class: 'restaurant_id_input' }
 		= f.input :user_id,:as => :hidden
 

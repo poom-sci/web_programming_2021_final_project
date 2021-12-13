@@ -8,7 +8,7 @@ class Appointment < ApplicationRecord
   def get_time
     return (self.date.to_s+' '+((self.time_start*2+10).to_s+':00')).to_time
   end
-
+# @appointment.get_time()
 
   # enum time_start: {
   #   '10:00':0,

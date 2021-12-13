@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   get 'favourite', to:"main#favourite"
   delete 'favourite_remove/:restaurant_id',to:'main#favourite_remove'
 
+  
+
   get 'restaurant_list', to:'main#restaurant_list'
 
   get 'restaurant/:restaurant_id',to:"main#restaurant"
